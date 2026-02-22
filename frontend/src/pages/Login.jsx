@@ -75,7 +75,7 @@ const Login = () => {
         <h1 className="text-2xl font-semibold text-center">SecureSend Login</h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
+        
           <div>
             <input
               type="email"
@@ -106,7 +106,7 @@ const Login = () => {
             )}
           </div>
 
-          {/* Password */}
+       
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}

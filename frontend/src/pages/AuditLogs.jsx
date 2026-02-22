@@ -48,7 +48,7 @@ const AuditLogs = () => {
         <div className="text-gray-500">Loading...</div>
       ) : (
         <>
-          {/* Desktop Table */}
+          
           <div className="hidden md:block overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-100">
             <table className="min-w-full text-sm">
               <thead className="border-b bg-gray-50">
@@ -78,7 +78,7 @@ const AuditLogs = () => {
             </table>
           </div>
 
-          {/* Mobile Card Layout */}
+     
           <div className="space-y-4 md:hidden">
             {logs.map((log) => (
               <div

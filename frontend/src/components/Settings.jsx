@@ -54,7 +54,7 @@ const Settings = () => {
 
       <h1 className="text-2xl font-semibold">Settings</h1>
 
-      {/* Account Info */}
+      
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4">
         <h2 className="text-lg font-medium">Account Information</h2>
 
@@ -70,7 +70,7 @@ const Settings = () => {
         </div>
       </div>
 
-      {/* Change Password */}
+      
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
         <h2 className="text-lg font-medium mb-6">Change Password</h2>
 
@@ -132,7 +132,7 @@ const Settings = () => {
         </form>
       </div>
 
-      {/* Logout */}
+     
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex justify-between items-center">
         <div>
           <h2 className="text-lg font-medium">Logout</h2>

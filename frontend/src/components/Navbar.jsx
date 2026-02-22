@@ -40,7 +40,7 @@ const handleLogout = async () => {
   return (
     <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 md:px-8 relative">
 
-      {/* Left Section */}
+     
       <div className="flex items-center gap-4">
         <button
           className="md:hidden text-gray-600"
@@ -54,14 +54,14 @@ const handleLogout = async () => {
         </h1>
       </div>
 
-      {/* Right Section */}
+      
       <div className="flex items-center gap-4 md:gap-6">
 
         <button className="hidden sm:block text-gray-500 hover:text-black transition">
           🔔
         </button>
 
-        {/* Avatar */}
+    
         <div className="relative flex items-center justify-center w-10 h-10">
           <button
             onClick={() => setOpen(!open)}
@@ -107,7 +107,7 @@ const handleLogout = async () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+    
       {mobileMenu && (
         <div className="absolute top-16 left-0 w-full bg-white border-b border-gray-200 shadow-sm md:hidden">
           <div className="flex flex-col p-4 space-y-3">

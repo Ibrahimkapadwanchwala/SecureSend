@@ -26,13 +26,13 @@ const Register = () => {
     setError("");
     setEmailError("");
 
-    // Email validation
+
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address");
       return;
     }
 
-    // Password match validation
+    
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -71,7 +71,7 @@ const Register = () => {
 
         <form onSubmit={handleSubmit} className="space-y-5">
 
-          {/* Name */}
+          
           <input
             type="text"
             placeholder="Full Name"
@@ -81,7 +81,7 @@ const Register = () => {
             required
           />
 
-          {/* Email */}
+        
           <div>
             <input
               type="email"
@@ -113,7 +113,7 @@ const Register = () => {
             )}
           </div>
 
-          {/* Password */}
+      
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -125,7 +125,7 @@ const Register = () => {
             />
           </div>
 
-          {/* Confirm Password */}
+          
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}

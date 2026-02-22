@@ -6,7 +6,7 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
 
   const handleNavigate = (path) => {
     navigate(path);
-    setIsOpen(false); // close on mobile
+    setIsOpen(false); 
   };
 
   const isActive = (path) =>

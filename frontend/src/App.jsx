@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardLayout from "./layouts/DashboardLayout";
+import DashboardLayout from "./layouts/DashBoardLayout";
 import AuditLogs from "./pages/AuditLogs";
 import Admin from "./pages/Admin";
 import RoleRedirect from "./components/RoleRedirect";

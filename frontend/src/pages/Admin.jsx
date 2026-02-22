@@ -78,14 +78,14 @@ const Admin = () => {
         Admin Panel
       </h1>
 
-      {/* Toast */}
+     
       {toast && (
         <div className="fixed top-4 right-4 sm:top-6 sm:right-6 bg-black text-white px-5 py-3 rounded-xl shadow-lg z-50 text-sm">
           {toast}
         </div>
       )}
 
-      {/* Desktop Table */}
+   
       <div className="hidden md:block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-x-auto">
         <table className="min-w-full text-sm">
           <thead className="bg-gray-50 border-b">
@@ -141,7 +141,7 @@ const Admin = () => {
         </table>
       </div>
 
-      {/* Mobile Card Layout */}
+
       <div className="md:hidden space-y-4">
         {users.map((user) => (
           <div
@@ -199,7 +199,7 @@ const Admin = () => {
         ))}
       </div>
 
-      {/* Freeze Modal */}
+  
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl w-full max-w-md p-6 space-y-5">

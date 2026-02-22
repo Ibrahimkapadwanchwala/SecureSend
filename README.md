@@ -1,305 +1,243 @@
-🚀 SecureSend — ACID-Compliant Fintech Wallet System
+# 🚀 SecureSend
+### A Production-Grade Fintech Wallet System
 
-SecureSend is a full-stack fintech-style wallet system built to demonstrate strong backend engineering fundamentals including:
+<p align="center">
+  <b>ACID Compliant • Ledger-Based Architecture • Idempotent Transfers • Admin Controls • Audit Logging</b>
+</p>
 
-ACID-compliant transactions
+---
 
-Deadlock prevention
+## 📌 Overview
 
-Idempotent APIs
+**SecureSend** is a full-stack fintech wallet system inspired by real-world payment systems like Stripe and Razorpay.
 
-Double-entry ledger accounting
+This project demonstrates:
 
-Role-based access control (RBAC)
+- Financial-grade transaction safety
+- Double-spend prevention
+- Ledger-based accounting model
+- Role-based access control
+- Audit logging system
+- Admin freeze/unfreeze controls
+- Rate-limited authentication
 
-Audit logging system
+Built with production architecture in mind — not just CRUD.
 
-Login rate limiting
+---
 
-This project focuses on data consistency, concurrency handling, and financial integrity, not just CRUD operations.
+## 🏗️ Architecture Highlights
 
-🏗 Tech Stack
-Frontend
+### 🔐 ACID-Compliant Transfers
+- MySQL transactions (`BEGIN`, `COMMIT`, `ROLLBACK`)
+- Row-level locking using `SELECT ... FOR UPDATE`
+- Deterministic locking order to prevent deadlocks
+- Deadlock retry logic
 
-React
+---
 
-Tailwind CSS
+### 💳 Ledger-Based Accounting (Single Source of Truth)
 
-Axios
+Every transfer creates **two ledger entries**:
 
-Context API
+- `DEBIT` entry (negative amount)
+- `CREDIT` entry (positive amount)
 
-Backend
+Wallet balance is derived from ledger integrity.
 
-Node.js
+---
 
-Express
+### 🔁 Idempotent API
 
-MySQL
+Each transfer requires a **client-generated idempotency key**.
 
-JWT (HttpOnly cookie authentication)
+Prevents:
+- Duplicate payments
+- Retry double-spend
+- Network retry inconsistencies
 
-Security
+---
 
-Role-based access control
+### 🛡️ Security Features
 
-Login rate limiting
+- JWT (HTTP-only cookies)
+- Role-based authorization (USER / ADMIN)
+- Login rate limiting (10 attempts per 10 minutes)
+- Wallet freeze protection
+- Password hashing using bcrypt
+- CORS protection
+- Input validation
 
-Wallet freeze mechanism
+---
 
-Structured audit logs
+### 🧾 Audit Logging System
 
-🔐 Authentication System
+Every critical action logs:
 
-JWT stored in HttpOnly cookie
+- LOGIN_SUCCESS
+- LOGIN_FAILED
+- TRANSFER_SUCCESS
+- TRANSFER_FAILED
+- FREEZE / UNFREEZE
 
-Secure login and logout
+Stored in dedicated `audit_logs` table.
 
-Middleware-based token verification
+Audit logs **never block main transaction logic**.
 
-Admin-only routes protected via role check
+---
 
-Rate limiting (10 attempts per IP in 10 minutes)
+## 🖥️ Tech Stack
 
-💰 Money Transfer Engine
+### Backend
+- Node.js
+- Express
+- MySQL
+- Redis (optional optimization)
+- JWT
+- bcrypt
 
-Transfers are implemented using financial system principles.
-
-✅ ACID-Compliant Transactions
-
-Each transfer is executed inside a database transaction:
-
-Insert transaction as PENDING
-
-Lock both wallets using SELECT ... FOR UPDATE
-
-Validate:
-
-Sufficient balance
-
-Wallet not frozen
-
-Insert ledger entries (double-entry)
-
-Update wallet balances
-
-Mark transaction as SUCCESS
-
-Commit
-
-If any step fails → rollback.
-🔁 Idempotent Transfer API
-
-Each transfer requires an idempotency_key.
-
-Prevents duplicate transfers due to retries
-
-Uses unique constraint (sender_id, idempotency_key)
-
-Safe against network retry duplication
-
-🔒 Deadlock Prevention
-
-Wallet rows are always locked in deterministic order:
-
-const ids = [senderId, receiverId].sort((a, b) => a - b);
-
-
-Deadlock retry logic handles:
-
-ER_LOCK_DEADLOCK
-
-ER_LOCK_WAIT_TIMEOUT
-
-This prevents circular locking and double spending.
-
-📒 Double-Entry Ledger System
-
-Each transfer creates:
-
-Wallet	Amount
-Sender	-X
-Receiver	+X
-
-Ledger ensures:
-
-Auditable money movement
-
-Balance reconstruction from history
-
-Financial correctness
-
-Immutable transaction records
-
-🧊 Wallet Freeze System
-
-Admin can:
-
-Freeze a user wallet
-
-Provide freeze reason
-
-Unfreeze wallet
-
-Frozen wallets:
-
-Cannot send money
-
-Cannot receive money
-
-All actions are logged in the audit system.
-
-📝 Audit Logging System
-
-All sensitive operations are logged:
-
-LOGIN_SUCCESS
-
-LOGIN_FAILED
-
-TRANSFER_SUCCESS
-
-TRANSFER_FAILED
-
-FREEZE
-
-UNFREEZE
-
-Audit logs store:
-
-user_id
-
-action
-
-metadata (JSON)
-
-ip_address
-
-timestamp
-
-Audit logging is non-blocking and does not interfere with core transaction logic.
-
-👨‍💼 Admin Panel
-
-Admin can:
-
-View all users
-
-Freeze / Unfreeze accounts
-
-View system-wide audit logs
-
-Admin routes are protected via role-based middleware.
-
-🗃 Database Design
-
-Tables:
-
-users
-
-wallet
-
-transactions
-
-ledger_entries
-
-audit_logs
-
-Indexes added for:
-
-sender_id
-
-receiver_id
-
-idempotency_key
-
-created_at
-
-Designed for concurrency, integrity, and scalability.
-
-🔄 Transfer Flow Summary
-Client → Transfer Request
-       → Begin Transaction
-       → Deterministic Row Lock
-       → Validate Balance & Freeze Status
-       → Insert Ledger Entries
-       → Update Wallet Balances
-       → Commit
-       → Audit Log (non-blocking)
-
-🧠 Engineering Concepts Demonstrated
-
-ACID database transactions
-
-Row-level locking
-
-Deadlock prevention
-
-Idempotent API design
-
-Double-entry accounting
-
-Concurrency handling
-
-Role-based authorization
-
-Secure cookie authentication
-
-Login rate limiting
-
-Defensive backend programming
-
-🚀 Running Locally
-Backend
+### Frontend
+- React
+- Tailwind CSS
+- Axios
+- React Router
+
+---
+
+## 📂 Project Structure
+
+```
+SecureSend/
+│
+├── backend/
+│   ├── controllers/
+│   ├── routes/
+│   ├── middleware/
+│   ├── services/
+│   └── configs/
+│
+├── frontend/
+│   ├── pages/
+│   ├── components/
+│   ├── context/
+│   └── services/
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Core Features
+
+### 👤 User
+- Register / Login
+- Secure cookie authentication
+- View balance
+- Transfer money
+- Transaction history (paginated)
+- Change password
+
+### 👨‍💼 Admin
+- View all users
+- Freeze wallet with reason
+- Unfreeze wallet
+- View audit logs
+
+---
+
+## 🔄 Transfer Flow (High-Level)
+
+1. Insert `PENDING` transaction
+2. Lock wallets deterministically
+3. Validate balance & freeze status
+4. Insert two ledger entries
+5. Update wallet balance
+6. Mark transaction `SUCCESS`
+7. Commit transaction
+8. Log audit event
+
+---
+
+## 🧠 Why This Project Is Different
+
+Most wallet demos:
+- Directly update balance
+- No locking
+- No idempotency
+- No ledger
+- No audit logs
+
+SecureSend implements **real payment-system concepts** used in fintech systems.
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone Repository
+
+```
+git clone https://github.com/YOUR_USERNAME/SecureSend.git
+cd SecureSend
+```
+
+---
+
+### 2️⃣ Backend Setup
+
+```
+cd backend
+npm install
+```
+
+Create `.env` file:
+
+```
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=yourpassword
+DB_NAME=securesend
+JWT_SECRET=your_secret_key
+```
+
+Run:
+
+```
+npm start
+```
+
+---
+
+### 3️⃣ Frontend Setup
+
+```
+cd frontend
 npm install
 npm run dev
+```
 
+---
 
-Runs on:
+## 📊 Future Improvements
 
-http://localhost:5000
+- Redis balance caching
+- Razorpay integration
+- Transfer reversal system
+- Cursor-based pagination
+- Dockerization
+- CI/CD pipeline
+- Unit & integration tests
 
-Frontend
-npm install
-npm run dev
+---
 
+## 📌 Author
 
-Runs on:
+Built by Ibrahim  
+Backend-focused developer passionate about fintech systems.
 
-http://localhost:5173
+---
 
-🎯 Why This Project Matters
+## ⭐ If You Like This Project
 
-This project demonstrates real-world backend engineering practices used in financial systems:
+Give it a star ⭐  
+Feedback and suggestions are welcome.
 
-Preventing double spending
-
-Handling race conditions
-
-Maintaining transactional consistency
-
-Designing audit-compliant systems
-
-Implementing secure authentication flows
-
-It goes beyond CRUD by focusing on correctness and system reliability.
-
-📌 Future Improvements
-
-Ledger-only balance computation (remove wallet.balance)
-
-Redis caching layer
-
-Cursor-based pagination
-
-CSRF protection
-
-Token versioning for forced logout
-
-Background audit processing worker
-
-Metrics & monitoring dashboard
-
-👨‍💻 Author
-
-Built as a backend-focused fintech system to demonstrate production-grade engineering principles.
