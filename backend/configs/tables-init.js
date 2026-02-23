@@ -9,6 +9,7 @@ async function createTable() {
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(100) NOT NULL,
         is_active BOOLEAN DEFAULT true,
+        role ENUM("USER","ADMIN") DEFAULT "USER"
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
