@@ -62,6 +62,8 @@ const Login = () => {
       } else if (status === 400) {
         setError("Invalid email or password.");
       } else {
+      
+        
         setError("Something went wrong. Please try again.");
       }
     } finally {
