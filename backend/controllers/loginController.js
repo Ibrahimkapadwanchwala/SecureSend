@@ -56,12 +56,12 @@ const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.cookie("token", token, {
-      secure: false, 
-      maxAge: 60 * 60 * 1000,
-      sameSite: "strict",
-      httpOnly: true,
-    });
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+  maxAge: 60 * 60 * 1000,
+});
 
    
     await auditLogEvent({

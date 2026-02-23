@@ -6,6 +6,8 @@ import api from "../services/api.js";
 const Settings = () => {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
+  console.log(user);
+  
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -66,6 +68,10 @@ const Settings = () => {
           <p>
             <span className="font-medium text-gray-800">Email:</span>{" "}
             {user?.email}
+          </p>
+          <p>
+            <span className="font-medium text-gray-800">User Id:</span>{" "}
+            {user?.id}
           </p>
         </div>
       </div>

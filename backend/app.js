@@ -7,10 +7,12 @@ import authRouter from './routes/authRoutes.js';
 import logoutRouter from "./routes/logoutRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import cors from 'cors';
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin:"http://localhost:5173",
+  origin:process.env.FRONTEND_URL,
   credentials:true
 }))
 app.use(cookieParser());
