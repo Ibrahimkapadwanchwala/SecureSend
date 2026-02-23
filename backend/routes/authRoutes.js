@@ -7,7 +7,8 @@ const router = express.Router();
 router.get("/me", verifyToken, async (req, res) => {
   try {
     const userId = req.user.userId;
-
+    console.log(userId);
+    
     const [rows] = await pool.execute(
       "SELECT id, name, email, is_active, created_at,role FROM users WHERE id = ?",
       [userId]
@@ -35,6 +36,8 @@ router.get("/me", verifyToken, async (req, res) => {
     });
 
   } catch (error) {
+    console.log(error.message);
+    
     res.status(500).json({
       success: false,
       message: "Failed to fetch user",
